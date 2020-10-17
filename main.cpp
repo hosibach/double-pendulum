@@ -9,11 +9,17 @@
 double g = 9.81;
 double l1 = 1;
 double l2 = 1;
-double m1 = 1;
+double m1 = 2;
 double m2 = 1;
 int n, tmax;
 double dt;
 std::string file;
+
+double x10 = M_PI_2;
+double x20 = M_PI_2;
+double p10 = 0;
+double p20 = 0;
+double t = 0;
 
 
 double func1(double x1, double x2, double p1, double p2)
@@ -45,12 +51,13 @@ void file_write(const std::string& filename,
 {
 	std::ofstream file_stream(filename);
 
-	file_stream << "#Werte:" << std::endl
-		<< "#Zeitschritt dt:" << '\t' << dt << std::endl
-		<< "#Maximale Zeit tmax:" << '\t' << tmax << std::endl
-		<< "#Samplegroesse:" << '\t' << n << std::endl
-		<< "#Ausgabedatei:" << '\t' << file << std::endl
-		<< "#Zeit t\tWinkel1 in rad\tWinkel2 in rad\tWinkelgeschw1 in rad/s\tWinkelgeschw2 in rad/s\tKartesische Positionen x1\ty1\tx2\ty2\n";
+	file_stream << "#Values:" << std::endl
+		<< "#Time step dt:" << '\t' << dt << std::endl
+		<< "#Max Time tmax:" << '\t' << tmax << std::endl
+		<< "#Samplesize:" << '\t' << n << std::endl
+		<< "#Outfile:" << '\t' << file << std::endl
+		<< "#l1: " << l1 << '\t' << "l2: " << l2 << '\t' << "m1: " << m1 << '\t' << "m2: " << m2 << std::endl
+		<< "#Time t \t Angle1 in rad \t Angle2 in rad \t AngVel1 in rad/s \t AngVel2 in rad/s \t Cart Positions x1 \t y1 \t x2 \t y2 \n";
 
 	int i = 0;
 
@@ -76,14 +83,8 @@ void file_write(const std::string& filename,
 
 int main() {
 
-	double x10 = M_PI_2;
-	double x20 = M_PI_2;
-	double p10 = 0;
-	double p20 = 0;
-	double t = 0;
 
-
-	std::cout << "Defaultgroessen (dt=1e-5,tmax=15,n=10000) ändern? [j/n] ";
+	std::cout << "Change default values (dt=1e-5,tmax=15,n=10000)? [y/n] ";
 
 	char s;
 	std::cin >> s;
@@ -96,14 +97,14 @@ int main() {
 			n=10000;
 			break;
 
-		case 'j':
-				std::cout << "Schrittgroesse(z.B. 1e-5): ";
+		case 'y':
+				std::cout << "Time step (e.g. 1e-5): ";
 				std::cin >> dt;
 
-				std::cout << "Betrachtungszeit tmax(z.B. 15): ";
+				std::cout << "Max time tmax(e.g. 15): ";
 				std::cin >> tmax;
 
-				std::cout << "Samplegroesse n (z.B. 10000 >= tmax): ";
+				std::cout << "Samplesize n (e.g. 10000): ";
 				std::cin >> n;
 				break;
 
@@ -116,21 +117,22 @@ int main() {
 	
 
 	int i = 1;
- 	file = std::string("./Daten/data")+std::to_string(i)+std::string(".dat");
+ 	file = std::string("./Data/data")+std::to_string(i)+std::string(".dat");
 
  	while (fexists(file))
  	{
  		i+=1;
- 		file = std::string("./Daten/data")+std::to_string(i)+std::string(".dat");
+ 		file = std::string("./Data/data")+std::to_string(i)+std::string(".dat");
  	}
 
 	// Gebe benutzte Werte in Terminal aus
 
-	std::cout << "Werte:" << std::endl
-		<< "Zeitschritt dt:" << '\t' << dt << std::endl
-		<< "Maximale Zeit tmax:" << '\t' << tmax << std::endl
-		<< "Samplegroesse:" << '\t' << n << std::endl
-		<< "Ausgabedatei:" << '\t' << file << std::endl;
+	std::cout << "Values:" << std::endl
+		<< "Time step dt:" << '\t' << dt << std::endl
+		<< "Max time tmax:" << '\t' << tmax << std::endl
+		<< "Samplesize:" << '\t' << n << std::endl
+		<< "Outfile:" << '\t' << file << std::endl
+		<< "l1: " << l1 << '\t' << "l2: " << l2 << '\t' << "m1: " << m1 << '\t' << "m2: " << m2 << std::endl;
 
 	std::cout << "Calculating..." << std::endl;
 
@@ -159,10 +161,6 @@ int main() {
 		carty2 = -l1 * cos(new_x1) - l2 * cos(new_x2);
 
 		results.emplace_back(t, new_x1, new_x2, new_p1, new_p2, cartx1, carty1, cartx2, carty2);
-
-		// Statusanzeige --> Flush zu langsam!
-		//std::cout << "\33[2K\r" << int(t/tmax*100) << '%' << '\t' << '[' << std::string(int(t/tmax*100), '#') << std::string(100-int(t/tmax*100), ' ') << ']'  << std::flush;
-		//}
 	}
 
 	std::cout << "Done calculating, writing to file..." << std::endl;

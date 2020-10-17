@@ -1,10 +1,12 @@
 import numpy as np
+import sys
 
 import matplotlib
 from matplotlib import pyplot as plt
 from matplotlib import animation
 matplotlib.use("Qt5Agg")
 
+file = sys.argv[1]
 fig = plt.figure()
 ax = fig.add_subplot(111, autoscale_on=False, xlim=(-3, 3), ylim=(-3, 3))
 ax.set_aspect('equal')
@@ -12,7 +14,7 @@ ax.grid()
 
 line, = ax.plot([],[], 'o-',lw=2)
 
-[t,cartx1,carty1,cartx2,carty2] = np.loadtxt('Daten/data5.dat', delimiter='\t', usecols=[0,5,6,7,8],unpack=True)
+[t,cartx1,carty1,cartx2,carty2] = np.loadtxt(file, delimiter='\t', usecols=[0,5,6,7,8],unpack=True)
 
 #def init():
 #		line.set_data([],[])
