@@ -7,19 +7,32 @@
 #include "rungekutta4schritt.h"
 
 double g = 9.81;
+double t = 0;
+std::string file;
+
+/*///////////
+	Basic Values for time step dt, max time
+	tmax and number of samples n written to the outfile
+	Note that minimizing the time step dt doesnt affect the size of the produced outfile, only changing n does!
+///////////*/
+
+double dt=1e-6;
+int	tmax=20;
+int n=10000;
+
+/*///////////
+	Lengths and Masses of the double pendulum
+///////////*/
+
 double l1 = 1;
 double l2 = 1;
 double m1 = 2;
 double m2 = 1;
-int n, tmax;
-double dt;
-std::string file;
 
 double x10 = M_PI_2;
-double x20 = M_PI_2;
+double x20 = 0;//M_PI_2;
 double p10 = 0;
 double p20 = 0;
-double t = 0;
 
 
 double func1(double x1, double x2, double p1, double p2)
@@ -57,6 +70,8 @@ void file_write(const std::string& filename,
 		<< "#Samplesize:" << '\t' << n << std::endl
 		<< "#Outfile:" << '\t' << file << std::endl
 		<< "#l1: " << l1 << '\t' << "l2: " << l2 << '\t' << "m1: " << m1 << '\t' << "m2: " << m2 << std::endl
+		<< "#Mass 1: " << '\t' << "starting angle: " << x10 << ", " << "starting vel: " << p10 << std::endl
+		<< "#Mass 2: " << '\t' << "starting angle: " << x20 << ", " << "starting vel: " << p20 << std::endl
 		<< "#Time t \t Angle1 in rad \t Angle2 in rad \t AngVel1 in rad/s \t AngVel2 in rad/s \t Cart Positions x1 \t y1 \t x2 \t y2 \n";
 
 	int i = 0;
@@ -84,37 +99,10 @@ void file_write(const std::string& filename,
 int main() {
 
 
-	std::cout << "Change default values (dt=1e-5,tmax=15,n=10000)? [y/n] ";
-
-	char s;
-	std::cin >> s;
-
-	switch(s){
-
-		case 'n':
-			dt=1e-5;
-			tmax=15;
-			n=10000;
-			break;
-
-		case 'y':
-				std::cout << "Time step (e.g. 1e-5): ";
-				std::cin >> dt;
-
-				std::cout << "Max time tmax(e.g. 15): ";
-				std::cin >> tmax;
-
-				std::cout << "Samplesize n (e.g. 10000): ";
-				std::cin >> n;
-				break;
-
-		default:
-			dt=1e-5;
-			tmax=15;
-			n=10000;
-			break;
-	}
-	
+	/*///////////
+	Numbering for Outfiles, produces outfiles
+	with increasing number 'data#.dat'
+	///////////*/
 
 	int i = 1;
  	file = std::string("./Data/data")+std::to_string(i)+std::string(".dat");
@@ -125,14 +113,21 @@ int main() {
  		file = std::string("./Data/data")+std::to_string(i)+std::string(".dat");
  	}
 
-	// Gebe benutzte Werte in Terminal aus
+
+
+	/*///////////
+	Verbose all values
+	///////////*/
 
 	std::cout << "Values:" << std::endl
-		<< "Time step dt:" << '\t' << dt << std::endl
-		<< "Max time tmax:" << '\t' << tmax << std::endl
+		<< "Time step dt:" << '\t' << dt << " s" << std::endl
+		<< "Max time tmax:" << '\t' << tmax << " s" << std::endl
 		<< "Samplesize:" << '\t' << n << std::endl
 		<< "Outfile:" << '\t' << file << std::endl
-		<< "l1: " << l1 << '\t' << "l2: " << l2 << '\t' << "m1: " << m1 << '\t' << "m2: " << m2 << std::endl;
+		<< "l1: " << l1 << " m" << ", " << "l2: " << l2 << " m" << '\t' << "m1: " << m1 << " kg" << ", " << "m2: " << m2 << " kg" << std::endl
+		<< "Starting values:" << std::endl
+		<< "Mass 1: " << '\t' << "starting angle: " << x10 << " rad" << ", " << "starting velocity: " << p10 << " rad/s" << std::endl
+		<< "Mass 2: " << '\t' << "starting angle: " << x20 << " rad" << ", " << "starting velocity: " << p20 << " rad/s" << std::endl;
 
 	std::cout << "Calculating..." << std::endl;
 
