@@ -1,2 +1,2 @@
 Simulation of a double pendulum via Runge-Kutta-Algorithm of 4th order
-<img src="https://github.com/hosibach/double-pendulum/blob/main/equation.jpg" width="10000">
+See [equation.pdf](equation.pdf) for functions for angle acceleration of both angles.

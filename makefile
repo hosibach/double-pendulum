@@ -13,5 +13,5 @@ mainprog: main.o
 exec: mainprog
 	./mainprog
 
-clean: main.o
-	rm *.o __pycache__ -r
+clean:
+	rm *.o
