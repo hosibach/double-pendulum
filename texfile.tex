@@ -1,0 +1,59 @@
+\documentclass[preview,a4paper,8pt]{standalone}
+
+\usepackage{amsmath}
+\usepackage{physics}
+\setlength{\jot}{3ex}
+
+\begin{document}
+
+\begin{align}
+\ddot{\vartheta}_1 &= -\frac{m_2}{m_1+m_2}\frac{l_2}{l_1}\left(\ddot{\vartheta_2}\cos(\vartheta_1-\vartheta_2)+\dot{\vartheta_2}^2\sin(\vartheta_1-\vartheta_2)\right)- \frac{g}{l_1}\sin(\vartheta_1) \label{1}\\
+\ddot{\vartheta_2} &= -\frac{l_1}{l_2}\left(\ddot{\vartheta_1}\cos(\vartheta_1-\vartheta_2) - \dot{\vartheta_1}^2\sin(\vartheta_1-\vartheta_2)\right)-\frac{g}{l_2}\sin(\vartheta_2) \label{2}
+\end{align}
+
+\eqref{2} in \eqref{1}:
+
+\begin{align}
+\ddot{\vartheta_1} =&
+-\frac{m_2}{m_1+m_2}\frac{l_2}{l_1}\quad\cdot\nonumber\\
+&\Bigg(
+\cos(\vartheta_1-\vartheta_2)
+\left[
+-\frac{l_1}{l_2}\left(\ddot{\vartheta_1}\cos(\vartheta_1-\vartheta_2) - \dot{\vartheta_1}^2\sin(\vartheta_1-\vartheta_2)\right)-\frac{g}{l_2}\sin(\vartheta_2)
+\right]
++\dot{\vartheta_2}^2\sin(\vartheta_1-\vartheta_2)
+\Bigg) \nonumber\\
+&-\frac{g}{l_1}\sin(\vartheta_1)\nonumber\\
+\nonumber\hfill \\
+\Longrightarrow \ddot{\vartheta_1} =& \left[1-\frac{m_2}{m_1+m_2}\cos^2(\vartheta_1-\vartheta_2)\right]^{-1}\quad\cdot \nonumber\\
+&\Bigg(
+\frac{m_2}{m_1+m_2}\frac{l_2}{l_1}\cos(\vartheta_1-\vartheta_2)
+\left[\dot{\vartheta_1}^2\sin(\vartheta_1-\vartheta_2)
++\frac{g}{l_2}\sin(\vartheta_2)
+\right] \nonumber\\
+&- \frac{m_2}{m_1+m_2}\frac{l_2}{l_1}\dot{\vartheta_2}^2\sin(\vartheta_1-\vartheta_2)\nonumber\\
+&- \frac{g}{l_1}\sin(\vartheta_1)
+\Bigg)
+\end{align}
+\eqref{1} in \eqref{2}:
+
+\begin{align}
+\ddot{\vartheta_2} =&
+-\frac{l_1}{l_2}\quad\cdot \nonumber\\
+&\Bigg(
+\cos(\vartheta_1-\vartheta_2)\left[-\frac{m_2}{m_1+m_2}\frac{l_2}{l_1}\left(\ddot{\vartheta_2}\cos(\vartheta_1-\vartheta_2)+\dot{\vartheta_2}^2\sin(\vartheta_1-\vartheta_2)\right)- \frac{g}{l_1}\sin(\vartheta_1)\right]
+-\dot{\vartheta_1}^2\sin(\vartheta_1-\vartheta_2)
+\Bigg)\nonumber \\
+&-\frac{g}{l_2}\sin(\vartheta_2)\nonumber\\
+\hfill\nonumber\\
+\Longrightarrow \ddot{\vartheta_2} =& \left[1-\frac{m_2}{m_1+m_2}\cos^2(\vartheta_1-\vartheta_2)\right]^{-1}\quad\cdot \nonumber\\
+&\Bigg(
+\cos(\vartheta_1-\vartheta_2)\left[\frac{m_2}{m_1+m_2}\dot{\vartheta_2}^2\sin(\vartheta_1-\vartheta_2)+\frac{l_1}{l_2}\frac{g}{l_1}\sin(\vartheta_1)\right] + \frac{l_1}{l_2}\dot{\vartheta_1}^2\sin(\vartheta_1-\vartheta_2)
+-\frac{g}{l_2}\sin(\vartheta_2)
+\Bigg)
+\end{align}
+
+
+
+
+\end{document}
