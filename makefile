@@ -15,3 +15,4 @@ exec: mainprog
 
 clean:
 	rm *.o
+	rm ./Data/* -f
